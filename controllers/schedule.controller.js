@@ -46,13 +46,13 @@ export const addSchedule = async (req, res, next) => {
 
 export const getSchedule = async (req, res, next) => {
     try {
-        const schedule = await Schedule.findById(req.params.id)
+        const schedules = await Schedule.findById(req.params.id)
 
-        if(!schedule){
+        if(!schedules){
             return res.status(404).json({message: 'No schedule found'})
         }
 
-        res.status(200).json(schedule)
+        res.status(200).json(schedules)
 
     } catch (error) {
         next(error)
