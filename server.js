@@ -14,6 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // Parses incoming JSON requests
 
+app.get('/', (req, res)=> {
+    res.send("Welcome to the MSS-express-backend")
+})
+
 //  Routes
 app.use('/api/schedules', scheduleRoutes);
 app.use('/api/auth', authRoutes)  
