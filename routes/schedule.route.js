@@ -26,7 +26,7 @@ scheduleRoutes.patch('/admin/update-status/:id', protect, authorizeRoles('admin'
 scheduleRoutes.delete('/admin/delete-schedule/:id', protect, authorizeRoles('admin'), deleteSchedule);
 scheduleRoutes.delete('/admin/empty-schedules', protect, authorizeRoles('admin'), deleteAllSchedules);
 
-scheduleRoutes.get('/', protect, getAllSchedules);
-scheduleRoutes.get('/:id', protect, getSchedule);
+scheduleRoutes.get('/', protect, authorizeRoles('admin'), getAllSchedules);
+scheduleRoutes.get('/:id', protect,authorizeRoles('admin'), getSchedule);
 
 export default scheduleRoutes   
