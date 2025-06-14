@@ -22,6 +22,7 @@ scheduleRoutes.patch('/panel/schedules/update-status/:id', protect, authorizeRol
 
 //Admin routes only
 scheduleRoutes.post('/admin/add-schedule', protect, authorizeRoles('admin'), )
+scheduleRoutes.get('/admin/ready-schedules', protect, authorizeRoles('admin'))
 scheduleRoutes.patch('/admin/update-status/:id', protect, authorizeRoles('admin'), validateUpdateStatusOnly, updateSchedule);
 scheduleRoutes.delete('/admin/delete-schedule/:id', protect, authorizeRoles('admin'), deleteSchedule);
 scheduleRoutes.delete('/admin/empty-schedules', protect, authorizeRoles('admin'), deleteAllSchedules);

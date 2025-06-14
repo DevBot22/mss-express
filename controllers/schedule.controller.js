@@ -284,3 +284,26 @@ export const updatePanelScheduleStatus = async (req, res, next) => {
     next(error)
   }
 }
+
+
+//admin get-ready schedules
+export const getPendingFinalApprovals = async (req, res, next) => {
+
+    try {
+        const schedules  = await Schedule.find()
+
+        const readySchedules = schedules.filter(schedule => {
+            const allPanelIsApproved = schedule.panelStatus.every(p => p.status === 'approved')
+            const adviserApproved = schedule.adviserStatus === 'approved'
+            const isPendingAdmin = schedule.status === 'pending' //only count if admin hasn't approved yet
+
+            return allPanelIsApproved && adviserApproved && isPendingAdmin
+        })
+
+        res.status(200).json({count: readySchedules.length})
+        
+    } catch (error) {
+        next(error)
+    }
+
+}
