@@ -308,20 +308,19 @@ export const getPendingFinalApprovals = async (req, res, next) => {
 
 }
 
-//get all approved schedules
+//get the approved schedules for calendar display
 export const getApprovedSchedules = async (req, res, next) => {
   try {
     const schedules = await Schedule.find({
       status: 'approved',
       adviserStatus: 'approved',
-      'panelStatus.status': { $ne: 'pending' }, // ensures some status is set
-      panelStatus: { $not: { $elemMatch: { status: { $ne: 'approved' } } } }, // all approved
+      panelStatus: { $not: { $elemMatch: { status: { $ne: 'approved' } } } },
     })
 
     const approved = schedules.map((s) => ({
-      title: s.studentName,
-      from: s.defenseDate,
-      to: new Date(s.defenseDate.getTime() + 60 * 60 * 1000), // +1hr
+      studentName: s.studentName,
+      defenseDate: s.defenseDate,
+      room: s.room,
     }))
 
     res.status(200).json(approved)
