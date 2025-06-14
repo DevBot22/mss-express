@@ -300,7 +300,7 @@ export const getPendingFinalApprovals = async (req, res, next) => {
             return allPanelIsApproved && adviserApproved && isPendingAdmin
         })
 
-        res.status(200).json({count: readySchedules.length})
+        res.status(200).json({count: readySchedules.length,  schedules: readySchedules})
         
     } catch (error) {
         next(error)
