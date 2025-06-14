@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addSchedule, deleteAllSchedules, deleteMySchedule, deleteSchedule, getAdviserSchedules, getAllSchedules, getMySchedules, getPanelSchedules, getPendingFinalApprovals, getSchedule, updateAdviserScheduleStatus, updateMySchedule, updatePanelScheduleStatus, updateSchedule } from "../controllers/schedule.controller.js";
+import { addSchedule, deleteAllSchedules, deleteMySchedule, deleteSchedule, getAdviserSchedules, getAllSchedules, getApprovedSchedules, getMySchedules, getPanelSchedules, getPendingFinalApprovals, getSchedule, updateAdviserScheduleStatus, updateMySchedule, updatePanelScheduleStatus, updateSchedule } from "../controllers/schedule.controller.js";
 import { scheduleValidator, validatePanelStatusOnly, validateRequest, validateUpdateStatusOnly } from "../middlewares/schedule.middleware.js";
 import { protect } from "../middlewares/auth.middleware.js";
 import { authorizeRoles } from "../middlewares/role.middleware.js";
@@ -21,8 +21,8 @@ scheduleRoutes.get('/panel/schedules', protect, authorizeRoles('panel'), getPane
 scheduleRoutes.patch('/panel/schedules/update-status/:id', protect, authorizeRoles('panel'), validatePanelStatusOnly, validateRequest, updatePanelScheduleStatus)
 
 //Admin routes only
-scheduleRoutes.post('/admin/add-schedule', protect, authorizeRoles('admin'), )
 scheduleRoutes.get('/admin/ready-schedules', protect, authorizeRoles('admin'), getPendingFinalApprovals)
+scheduleRoutes.get('/admin/approved-schedules', protect, authorizeRoles('admin'), getApprovedSchedules)
 scheduleRoutes.patch('/admin/update-status/:id', protect, authorizeRoles('admin'), validateUpdateStatusOnly, updateSchedule);
 scheduleRoutes.delete('/admin/delete-schedule/:id', protect, authorizeRoles('admin'), deleteSchedule);
 scheduleRoutes.delete('/admin/empty-schedules', protect, authorizeRoles('admin'), deleteAllSchedules);
