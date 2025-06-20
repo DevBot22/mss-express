@@ -328,3 +328,32 @@ export const getApprovedSchedules = async (req, res, next) => {
     next(err)
   }
 }
+
+
+export const searchSchedules = async (req, res, next) => {
+ 
+    try {
+        
+        const query = query.q?.trim()
+
+        if(!query){
+            return res.status(400).json({message: "Search query is required"})
+        }
+
+        const schedules = await Schedule.find({
+            $or: [
+                {studentName: {$regex: query, $options: "i"}},
+                {section: {$regex: query, $options: "i"}},
+                {manuscriptTitle: {$regex: query, $options: "i"}},
+
+            ]
+        }).sort({defenseDate: 1})// Sort the result by earliest defense date first
+
+        res.status(schedules.length ? 200 : 404).json(
+            schedules.length ? schedules: {message: "No matching schedules found"}
+        )
+
+    } catch (error) {
+        next(error)
+    }
+}

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addSchedule, deleteAllSchedules, deleteMySchedule, deleteSchedule, getAdviserSchedules, getAllSchedules, getApprovedSchedules, getMySchedules, getPanelSchedules, getPendingFinalApprovals, getSchedule, updateAdviserScheduleStatus, updateMySchedule, updatePanelScheduleStatus, updateSchedule } from "../controllers/schedule.controller.js";
+import { addSchedule, deleteAllSchedules, deleteMySchedule, deleteSchedule, getAdviserSchedules, getAllSchedules, getApprovedSchedules, getMySchedules, getPanelSchedules, getPendingFinalApprovals, getSchedule, searchSchedules, updateAdviserScheduleStatus, updateMySchedule, updatePanelScheduleStatus, updateSchedule } from "../controllers/schedule.controller.js";
 import { scheduleValidator, validatePanelStatusOnly, validateRequest, validateUpdateStatusOnly } from "../middlewares/schedule.middleware.js";
 import { protect } from "../middlewares/auth.middleware.js";
 import { authorizeRoles } from "../middlewares/role.middleware.js";
@@ -26,6 +26,7 @@ scheduleRoutes.get('/admin/approved-schedules', protect, authorizeRoles('admin')
 scheduleRoutes.patch('/admin/update-status/:id', protect, authorizeRoles('admin'), validateUpdateStatusOnly, updateSchedule);
 scheduleRoutes.delete('/admin/delete-schedule/:id', protect, authorizeRoles('admin'), deleteSchedule);
 scheduleRoutes.delete('/admin/empty-schedules', protect, authorizeRoles('admin'), deleteAllSchedules);
+scheduleRoutes.get('/admin/search', protect, authorizeRoles('admin'), searchSchedules)
 
 scheduleRoutes.get('/', protect, authorizeRoles('admin'), getAllSchedules);
 scheduleRoutes.get('/:id', protect,authorizeRoles('admin'), getSchedule);
