@@ -334,7 +334,7 @@ export const searchSchedules = async (req, res, next) => {
  
     try {
         
-        const query = query.q?.trim()
+        const query = req.query.q?.trim()
 
         if(!query){
             return res.status(400).json({message: "Search query is required"})
