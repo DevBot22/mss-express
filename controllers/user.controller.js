@@ -1,3 +1,4 @@
+import { query } from "express-validator";
 import User from "../models/user.model.js";
 
 export const getAllUsers = async (req, res, next) => {
@@ -52,5 +53,28 @@ export const updateUser = async (req, res, next) => {
         res.status(200).json({message: "User has been updated"})
     } catch (error) {
         next(error)
+    }
+}
+
+//For admin search function
+export const searchUsers = async (req, res, next) => {
+    try {
+        const query = req.query.q?.trim()
+
+        if(!query){
+             return res.status(400).json({message: "Search query is required"})
+        }
+
+        const users = await User.find({
+            $or: [
+                 {name: {$regex: query, $options: "i"}},
+                 {email: {$regex: query, $options: "i"}},
+            ]
+        })
+        
+        res.status(users.length ? 200 : 404).json(
+            users.length ? users: {message: "No matching user/users found"})
+
+    } catch (error) {
     }
 }
