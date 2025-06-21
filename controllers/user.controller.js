@@ -71,10 +71,11 @@ export const searchUsers = async (req, res, next) => {
                  {email: {$regex: query, $options: "i"}},
             ]
         })
-        
+
         res.status(users.length ? 200 : 404).json(
             users.length ? users: {message: "No matching user/users found"})
 
     } catch (error) {
+        next(error)
     }
 }
