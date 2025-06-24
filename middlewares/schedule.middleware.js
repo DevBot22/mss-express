@@ -7,6 +7,7 @@ export const scheduleValidator = [
     check('manuscriptTitle').notEmpty().withMessage('Manuscript Title is required'),
     check('adviser').notEmpty().withMessage('Adviser is required'),
     check('panelMembers').isArray({min: 1}).withMessage('At least one panel member is required'),
+    check('defenseTime').notEmpty().withMessage('Time is required'),
     check('defenseDate').isISO8601().withMessage('Defense date must be a valid ISO date')
       .custom((value) => {
       if (new Date(value) <= new Date()) {

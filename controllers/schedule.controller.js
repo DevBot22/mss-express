@@ -19,7 +19,7 @@ export const getAllSchedules = async (req, res, next) => {
 export const addSchedule = async (req, res, next) => {
     try {
         const { section ,manuscriptTitle, adviser, panelMembers,
-               defenseDate, room, status
+               defenseDate, defenseTime, room, status
              } = req.body;
 
         const studentName = req.user.name //from token
@@ -33,7 +33,7 @@ export const addSchedule = async (req, res, next) => {
 
         const newSchedule = new Schedule({
            studentId ,studentName, section, manuscriptTitle, adviser, panelMembers,
-               defenseDate, room, status,
+               defenseDate, defenseTime, room, status,
                panelStatus: panelMembers.map(name => ({name, status: 'pending'}))//automatic populate panel's status to pending
         })
 
@@ -72,7 +72,7 @@ export const updateSchedule = async (req, res, next) => {
 
     // Send notification only if schedule is approved
     if (status === 'approved') {
-      const { adviser, panelMembers, studentId, defenseDate } = updatedSchedule;
+      const { adviser, panelMembers, studentId, defenseDate, defenseTime } = updatedSchedule;
 
       const student = await User.findById(studentId);
       const adviserUser = await User.findOne({ name: adviser });
