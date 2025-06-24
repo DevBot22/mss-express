@@ -30,10 +30,6 @@ const scheduleSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  defenseTime: {
-  type: String,
-  required: true,
-},
   room: {
     type: String,
     required: true,
