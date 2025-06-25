@@ -37,7 +37,7 @@ export const validateUpdateStatusOnly = [
 
 //Middleware Validator for  updating adviser status only
 export const validateUpdateAdviserStatusOnly = [
-  check('adviserStatus')
+  check('status')
     .notEmpty()
     .withMessage('Status is required')
     .isIn(['approved', 'rejected'])
