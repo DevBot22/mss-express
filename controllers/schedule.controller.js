@@ -213,6 +213,23 @@ export const getAdviserSchedules = async (req, res, next) => {
     }
 }
 
+export const getAdviserSchedulesById = async (req, res, next) => {
+    try {
+        
+        const schedId = req.params.id
+        const schedules = await Schedule.findById(schedId)
+
+        if(!schedules){
+            return res.status(404).json({message: "Schedule does not exist"})
+        }
+
+        res.status(200).json(schedules)
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 export const updateAdviserScheduleStatus = async (req, res, next) => {
     try {
         const {id} = req.params
@@ -247,6 +264,23 @@ export const getPanelSchedules = async (req, res, next) => {
         })
         if(!schedules || schedules.length === 0){
             return res.status(400).json({message: 'No schedules assigned to you'})
+        }
+
+        res.status(200).json(schedules)
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getPanelSchedulesById = async (req, res, next) => {
+    try {
+        const schedId = req.params.id
+
+        const schedules = await Schedule.findById(schedId)
+
+        if(!schedules){
+            return res.status(400).json({message: 'Schedule does not exist'})
         }
 
         res.status(200).json(schedules)
