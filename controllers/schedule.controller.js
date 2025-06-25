@@ -174,7 +174,7 @@ export const deleteMySchedule = async (req, res, next) => {
     try {
 
         const studentId = req.user._id
-        const scheduleId = user.params.id
+        const scheduleId = req.params.id
 
         //Find schedule
         const schedule = await Schedule.findOne({_id: scheduleId, studentId})
