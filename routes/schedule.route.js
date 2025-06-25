@@ -22,7 +22,7 @@ scheduleRoutes.patch('/panel/schedules/update-status/:id', protect, authorizeRol
 
 //Admin routes only
 scheduleRoutes.get('/admin/ready-schedules', protect, authorizeRoles('admin'), getPendingFinalApprovals)
-scheduleRoutes.get('/admin/approved-schedules', protect, authorizeRoles('admin'), getApprovedSchedules)
+scheduleRoutes.get('/admin/approved-schedules', protect, authorizeRoles('admin', 'student', 'panel', 'adviser'), getApprovedSchedules)
 scheduleRoutes.patch('/admin/update-status/:id', protect, authorizeRoles('admin'), validateUpdateStatusOnly, updateSchedule);
 scheduleRoutes.delete('/admin/delete-schedule/:id', protect, authorizeRoles('admin'), deleteSchedule);
 scheduleRoutes.delete('/admin/empty-schedules', protect, authorizeRoles('admin'), deleteAllSchedules);
