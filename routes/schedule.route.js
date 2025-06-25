@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addSchedule, deleteAllSchedules, deleteMySchedule, deleteSchedule, getAdviserSchedules, getAllSchedules, getApprovedSchedules, getMySchedules, getPanelSchedules, getPendingFinalApprovals, getSchedule, searchSchedules, updateAdviserScheduleStatus, updateMySchedule, updatePanelScheduleStatus, updateSchedule } from "../controllers/schedule.controller.js";
+import { addSchedule, deleteAllSchedules, deleteMySchedule, deleteSchedule, getAdviserSchedules, getAdviserSchedulesById, getAllSchedules, getApprovedSchedules, getMySchedules, getPanelSchedules, getPendingFinalApprovals, getSchedule, searchSchedules, updateAdviserScheduleStatus, updateMySchedule, updatePanelScheduleStatus, updateSchedule } from "../controllers/schedule.controller.js";
 import { scheduleValidator, validatePanelStatusOnly, validateRequest, validateUpdateStatusOnly } from "../middlewares/schedule.middleware.js";
 import { protect } from "../middlewares/auth.middleware.js";
 import { authorizeRoles } from "../middlewares/role.middleware.js";
@@ -14,6 +14,7 @@ scheduleRoutes.post('/new-schedule', protect, authorizeRoles('student'), schedul
 
 //Adviser routes only
 scheduleRoutes.get('/adviser/schedules', protect, authorizeRoles('adviser'), getAdviserSchedules )
+scheduleRoutes.get('/adviser/schedules/:id', protect, authorizeRoles('adviser'), getAdviserSchedulesById)
 scheduleRoutes.patch('/adviser/update-status/:id', protect, authorizeRoles('adviser'), validateUpdateStatusOnly, validateRequest, updateAdviserScheduleStatus)
 
 //Panel routes only
