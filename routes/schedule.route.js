@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addSchedule, deleteAllSchedules, deleteMySchedule, deleteSchedule, getAdviserSchedules, getAdviserSchedulesById, getAllSchedules, getApprovedSchedules, getMySchedules, getPanelSchedules, getPendingFinalApprovals, getSchedule, searchSchedules, updateAdviserScheduleStatus, updateMySchedule, updatePanelScheduleStatus, updateSchedule } from "../controllers/schedule.controller.js";
+import { addSchedule, deleteAllSchedules, deleteMySchedule, deleteSchedule, getAdviserSchedules, getAdviserSchedulesById, getAllSchedules, getApprovedSchedules, getMySchedules, getPanelSchedules, getPanelSchedulesById, getPendingFinalApprovals, getSchedule, searchSchedules, updateAdviserScheduleStatus, updateMySchedule, updatePanelScheduleStatus, updateSchedule } from "../controllers/schedule.controller.js";
 import { scheduleValidator, validatePanelStatusOnly, validateRequest, validateUpdateStatusOnly } from "../middlewares/schedule.middleware.js";
 import { protect } from "../middlewares/auth.middleware.js";
 import { authorizeRoles } from "../middlewares/role.middleware.js";
@@ -19,6 +19,7 @@ scheduleRoutes.patch('/adviser/update-status/:id', protect, authorizeRoles('advi
 
 //Panel routes only
 scheduleRoutes.get('/panel/schedules', protect, authorizeRoles('panel'), getPanelSchedules)
+scheduleRoutes.get('/panel/schedules/:id', protect, authorizeRoles('panel'), getPanelSchedulesById)
 scheduleRoutes.patch('/panel/schedules/update-status/:id', protect, authorizeRoles('panel'), validatePanelStatusOnly, validateRequest, updatePanelScheduleStatus)
 
 //Admin routes only
