@@ -49,7 +49,7 @@ export const validatePanelStatusOnly = [
   check('status')
   .notEmpty()
   .withMessage('Status is required')
-  .isIn(['approved', 'pending','rejected'])
+  .isIn(['approved','rejected'])
   .withMessage('Status must be approved or rejected')
 ]
 
