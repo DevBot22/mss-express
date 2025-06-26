@@ -259,19 +259,25 @@ export const getPanelSchedules = async (req, res, next) => {
     try {
         const panelName = req.user.name
 
-        const schedules = await Schedule.findOne({
+        // Fetch ALL schedules where the panel member is assigned
+        const schedules = await Schedule.find({
             'panelStatus.name': panelName
-        })
-        if(!schedules || schedules.length === 0){
-            return res.status(400).json({message: 'No schedules assigned to you'})
+        }).sort({ defenseDate: 1 })
+
+        // Check if any schedules are found
+        if (!schedules || schedules.length === 0) {
+            return res.status(404).json({ message: 'No schedules assigned to you' })
         }
 
+        // Return the list of schedules
         res.status(200).json(schedules)
 
     } catch (error) {
+        console.error(error)
         next(error)
     }
 }
+
 
 export const getPanelSchedulesById = async (req, res, next) => {
     try {
