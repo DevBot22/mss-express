@@ -296,7 +296,6 @@ export const getPanelSchedulesById = async (req, res, next) => {
     }
 }
 
-
 export const updatePanelScheduleStatus = async (req, res, next) => {
   try {
     const { id } = req.params
@@ -315,8 +314,9 @@ export const updatePanelScheduleStatus = async (req, res, next) => {
       return res.status(403).json({ message: 'You are not assigned as a panel on this schedule' })
     }
 
-    // Update status
+    // Update the status
     panel.status = status
+
     await schedule.save()
 
     res.status(200).json({ message: `Panel status updated to ${status}` })
@@ -324,6 +324,7 @@ export const updatePanelScheduleStatus = async (req, res, next) => {
     next(error)
   }
 }
+
 
 
 //admin get-ready schedules
