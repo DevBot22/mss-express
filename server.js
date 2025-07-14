@@ -5,10 +5,13 @@ import cors from 'cors';
 import scheduleRoutes from './routes/schedule.route.js';
 import authRoutes from './routes/auth.route.js';
 import userRoutes from './routes/user.route.js';
+import job from './utils/cron.js';
 
 dotenv.config();
 
 const app = express();
+
+if (process.env.NODE_ENV === "production") job.start();
 
 // Middleware
 app.use(cors());
