@@ -1,4 +1,7 @@
-import nodemailer from 'nodemailer'
+// Bypasses the broken internal dist/esm compiler pathing
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const nodemailer = require('nodemailer');
 import dotenv from 'dotenv'
 dotenv.config()
 
